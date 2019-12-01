@@ -13,5 +13,7 @@ namespace test3.Data
             : base(options)
         {
         }
+
+        public DbSet<User> ApplicationUsers { get; set; }
     }
 }

@@ -11,6 +11,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authorization;
 
 namespace test3.Controllers
 {
@@ -31,10 +32,11 @@ namespace test3.Controllers
 
         [HttpPost]
         [Route("Register")]
+        [Authorize(Roles = "Admin")]
         //Post: api/ApplicationUser/Register
         public async Task<object> PostApplicationUser(ApplicationUserModel model)
         {
-            model.Role = "Admin";
+            model.Role = "OperatorOrg";
             var applicationUser = new User()
             {
                 UserName = model.UserName,

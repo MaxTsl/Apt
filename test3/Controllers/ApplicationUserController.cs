@@ -31,8 +31,8 @@ namespace test3.Controllers
         }
 
         [HttpPost]
-        [Route("Register")]
         [Authorize(Roles = "Admin")]
+        [Route("Register")]
         //Post: api/ApplicationUser/Register
         public async Task<object> PostApplicationUser(ApplicationUserModel model)
         {
@@ -47,8 +47,13 @@ namespace test3.Controllers
             try
             {
                 var result = await _userManager.CreateAsync(applicationUser, model.Password);
-                await _userManager.AddToRoleAsync(applicationUser, model.Role);
-                return Ok(result);
+                if(result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(applicationUser, model.Role);
+                    return Ok(result);
+                }
+                else
+                    return BadRequest(new { message = result.Errors.ToList()[0].Code + ": " + result.Errors.ToList()[0].Description});
             }
             catch (Exception ex)
             {
@@ -74,7 +79,7 @@ namespace test3.Controllers
                     Subject = new ClaimsIdentity(new Claim[]
                     {
                         new Claim("UserID", user.Id.ToString())
-                        //,new Claim(_options.ClaimsIdentity.RoleClaimType,role.FirstOrDefault())
+                        ,new Claim(_options.ClaimsIdentity.RoleClaimType,role.FirstOrDefault())
                     }),
                     Expires = DateTime.UtcNow.AddMinutes(2),/* AddDays(1),*/
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)

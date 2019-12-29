@@ -15,5 +15,6 @@ namespace test3.Data
         }
 
         public DbSet<User> ApplicationUsers { get; set; }
+        public DbSet<Organisation> Organisations { get; set; }
     }
 }

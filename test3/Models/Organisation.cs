@@ -9,8 +9,7 @@ namespace test3.Models
 {
     public class Organisation
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OrgId { get; set; }
         [Required]
         [Column(TypeName = "nvarchar(200)")]

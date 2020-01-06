@@ -22,6 +22,17 @@ namespace test3.Controllers
 
         public IActionResult Create() => View();
 
+
+        /// GET api/Organisation/5
+        //[HttpGet("{id}")]
+        //public IActionResult Get(int id)
+        //{
+        //    Organisation org = _userManager.Users.FirstOrDefault(x => x.OrgId == id);
+        //    if (org == null)
+        //        return NotFound();
+        //    return new ObjectResult(org);
+        //}
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserViewModel model)
         {

@@ -36,12 +36,21 @@ namespace test3.Controllers
         //Post: api/ApplicationUser/Register
         public async Task<object> PostApplicationUser(ApplicationUserModel model)
         {
-            model.Role = "OperatorOrg";
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+            var user = await _userManager.FindByIdAsync(userId);
+            var roles = await _userManager.GetRolesAsync(user);
+
+            if (user.OrgId != 0)
+                model.OrgId = user.OrgId;
+
+            //if(roles.Contains("Admin"))
+
+            //model.Role = model.Role;// "OperatorOrg";
             var applicationUser = new User()
             {
                 UserName = model.UserName,
                 Email = model.Email,
-                //FullName = model.FullName
+                OrgId = model.OrgId
             };
 
             try

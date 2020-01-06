@@ -28,7 +28,7 @@ namespace test3.Controllers
             return res;
         }
 
-        /// GET api/users/5
+        /// GET api/Organisation/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -38,7 +38,7 @@ namespace test3.Controllers
             return new ObjectResult(org);
         }
 
-        // POST api/users
+        // POST api/Organisation
         [HttpPost]
         public IActionResult Post([FromBody]Organisation org)
         {
@@ -52,7 +52,7 @@ namespace test3.Controllers
             return Ok(org);
         }
 
-        // PUT api/users/
+        // PUT api/Organisation/
         [HttpPut]
         public IActionResult Put([FromBody]Organisation org)
         {
@@ -70,7 +70,7 @@ namespace test3.Controllers
             return Ok(org);
         }
 
-        // DELETE api/users/5
+        // DELETE api/Organisation/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
